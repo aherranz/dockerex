@@ -120,7 +120,10 @@ defmodule DockerexTest do
     assert {:ok, stream} = File.read(tar_filename)
 
     assert {:error, :bad_request,
-            %{message: "dockerfile parse error line 1: unknown instruction: FRO"}} ==
+            %{
+              message:
+                "dockerfile parse error on line 1: unknown instruction: FRO (did you mean FROM?)"
+            }} ==
              Images.build(%{}, stream)
   end
 
@@ -246,7 +249,7 @@ defmodule DockerexTest do
     ## Since command takes a long time, cannot start the container again
     assert {:error, :not_modified, nil} = Containers.start(id)
 
-    assert {:ok, %{Error: nil, StatusCode: 0}} = Containers.wait(id)
+    assert {:ok, %{StatusCode: 0}} = Containers.wait(id)
     assert {:ok, logs} = Containers.logs(id, %{stdout: true})
     assert [frame | _frames] = logs
     assert %{output: ".:\n", size: 3, stream_type: :stdout} = frame
@@ -263,7 +266,7 @@ defmodule DockerexTest do
 
     assert :ok = Containers.start(id)
 
-    assert {:ok, %{Error: nil, StatusCode: 0}} = Containers.wait(id)
+    assert {:ok, %{StatusCode: 0}} = Containers.wait(id)
 
     assert {:ok, ".:\r\n" <> _} = Containers.logs(id, %{stdout: true})
   end
