@@ -11,7 +11,9 @@
 
 ## Next release
 
-- Asynchronous logs:
+## 1.0.0
+
+- [+] Asynchronous logs:
   - `Dockerex.Containers.logs(id, params \\ %{stdout: true}, pid \\ nil)`
     Get stdout and stderr logs from a container. If pid is a pid/0
     then the output is streamed to the process.
