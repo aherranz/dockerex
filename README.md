@@ -8,6 +8,11 @@ the command `docker version`.
 
 ## Configuration
 
+Add the dependency:
+```
+{:dockerex, git: "https://github.com/aherranz/dockerex.git", tag: "1.0.0"}
+```
+
 By default, the URL used by the library is
 `http://127.0.0.1:2375/`. You can change it in the config file of your
 client:
